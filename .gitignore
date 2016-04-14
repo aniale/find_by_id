@@ -1,0 +1,12 @@
+def find_by_id(id_author):
+    headers = {"Accept":"application/json", "X-ELS-APIKey": MY_API_KEY}
+    searchQuery = "query="
+    if not id_author:
+        return
+    searchQuery+="AU-ID(%s)" %(str(id_author))
+    fields = "&field=identifier"
+    resp = requests.get(search_api_author_url+searchQuery+fields, headers=headers)
+
+    if resp.status_code != 200:
+        print json.dumps(resp.json(), sort_keys=True, indent=4, separators=(',', ': '))
+        return None
